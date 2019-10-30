@@ -1,0 +1,5 @@
+IMG_GUI_PATH="~/mantidimaging"
+alias types="cd $IMG_GUI_PATH; mypy mantidimaging/ --ignore-missing-imports; cd -"
+alias tests="cd $IMG_GUI_PATH/mantidimaging;python -m nose;cd -"
+alias initenv="conda activate mantidimaging;cd $IMG_GUI_PATH"
+alias gui="initenv;python -m mantidimaging"
