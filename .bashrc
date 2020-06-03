@@ -6,31 +6,36 @@ function stop_payara {
     asadmin stop-domain --domaindir "$PAYARA_DOMAINS_DIR" "domain$1"
 }
 
-#Global variables woo ( Actually :`( )
-#TODO: find FILE_NAME dynamically so don't have to update when version changes
-function set_ear_file {
-	case $1 in
-		schedule) FILE_NAME="schedule-ear-1.10.6"; EAR_PATH="$APPS_HOME_FOLDER/Schedule/SchedulePackage/ear/target" ;;
-		visits) FILE_NAME="visits-ear-4.1"; EAR_PATH="$APPS_HOME_FOLDER/visits/VisitsPackage/visits-ear/target" ;;
-		proposal-lookup) FILE_NAME="proposal-lookup-ear-1.10.1"; EAR_PATH="$APPS_HOME_FOLDER/Schedule/proposal-lookup/proposal-lookup-ear/target" ;;
-		*) echo "Not a valid app to deploy"
-	esac
+function set_deploy_target {
+    local source_dir;
+    local target_ext;
+    case $1 in
+        users-services) source_dir="$APPS_HOME_FOLDER/users/users";
+                        target_ext="war";;
+        users-frontend) source_dir="$APPS_HOME_FOLDER/users/users";
+                        target_ext="war";;
+        schedule)       source_dir="$APPS_HOME_FOLDER/Schedule/SchedulePackage";
+                        target_ext="war";;
+    esac
+    DEPLOY_TARGET=$(find $source_dir -wholename $source_dir/*/target/$1*.$target_ext);
+}
 
-	case $2 in
-		deploy) EAR_FILE="$EAR_PATH/$FILE_NAME-SNAPSHOT.ear" ;;
-		undeploy) EAR_FILE="$EAR_PATH/$FILE_NAME-SNAPSHOT" ;;
-		*) echo "Invalid mode for set_ear_file, must be 'deploy' or 'undeploy'"
-	esac;
+function set_undeploy_target {
+    local orig_deploy_target=$DEPLOY_TARGET;
+    set_deploy_target $1;
+    UNDEPLOY_TARGET=$(basename $DEPLOY_TARGET);
+    UNDEPLOY_TARGET="${UNDEPLOY_TARGET%.*}";
+    DEPLOY_TARGET=$orig_deploy_target;
 }
 
 function deploy {
-	set_ear_file $1 "deploy"
-	$PAYARA_INSTALL_ASADMIN "deploy" $EAR_FILE;
+	set_deploy_target $1
+	asadmin deploy $DEPLOY_TARGET;
 }
 
 function undeploy {
-	set_ear_file $1 "undeploy"
-	$PAYARA_INSTALL_ASADMIN "undeploy" $EAR_FILE;
+	set_undeploy_target $1
+	asadmin undeploy $UNDEPLOY_TARGET;
 }
 
 function local_logs {
