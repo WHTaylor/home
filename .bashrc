@@ -1,18 +1,9 @@
-APPS_HOME_FOLDER="C:/Users/rop61488/Documents/Apps"
-FBS_FOLDER="C:/FBS/Apps"
-alias apps="cd $APPS_HOME_FOLDER"
-alias fbs="cd $FBS_FOLDER"
-
-LOCAL_PAYARA_DOMAINS_FOLDER="C:\\payara\\domains"
-PAYARA_INSTALL_ASADMIN="C:/payara/installations/payara-4.1.2.181/payara41/bin/asadmin"
-
-function start_payara_server {
-	$PAYARA_INSTALL_ASADMIN "start-domain" "--debug" "--domaindir" "$LOCAL_PAYARA_DOMAINS_FOLDER" "domain$1"
+function start_payara {
+    asadmin start-domain --debug --domaindir "$PAYARA_DOMAINS_DIR" "domain$1"
 }
-alias start_payara='start_payara_server 1; start_payara_server 2;'
 
 function stop_payara {
-	$PAYARA_INSTALL_ASADMIN "stop-domain" "--domaindir" "$LOCAL_PAYARA_DOMAINS_FOLDER" "domain$1"
+    asadmin stop-domain --domaindir "$PAYARA_DOMAINS_DIR" "domain$1"
 }
 
 #Global variables woo ( Actually :`( )
@@ -43,5 +34,5 @@ function undeploy {
 }
 
 function local_logs {
-	explorer "$LOCAL_PAYARA_DOMAINS_FOLDER\\domain$1\\logs"
+	explorer "$PAYARA_DOMAINS_DIR\\domain$1\\logs"
 }

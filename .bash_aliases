@@ -9,3 +9,6 @@ alias update_wsdl='py $APPS_HOME_FOLDER/Tools/WsdlUpdater/wsdl_updater.py'
 
 alias here="explorer ."
 alias python2="winpty /c/python27/python.exe"
+
+alias apps="cd $APPS_HOME_FOLDER"
+alias fbs="cd /c/FBS/Apps"
