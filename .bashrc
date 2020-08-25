@@ -16,16 +16,15 @@ function set_deploy_target {
                         target_ext="war";;
         schedule)       source_dir="$APPS_HOME_FOLDER/Schedule/SchedulePackage";
                         target_ext="war";;
+        visits)         source_dir="$APPS_HOME_FOLDER/Visits/VisitsPackage";
+                        target_ext="war";;
     esac
     DEPLOY_TARGET=$(find $source_dir -wholename $source_dir/*/target/$1*.$target_ext);
 }
 
-function set_undeploy_target {
-    local orig_deploy_target=$DEPLOY_TARGET;
-    set_deploy_target $1;
-    UNDEPLOY_TARGET=$(basename $DEPLOY_TARGET);
-    UNDEPLOY_TARGET="${UNDEPLOY_TARGET%.*}";
-    DEPLOY_TARGET=$orig_deploy_target;
+function find_deployed_application {
+    local retval=$(asadmin list-applications | grep $1 | cut -d ' ' -f1)
+    echo $retval
 }
 
 function deploy {
@@ -34,8 +33,13 @@ function deploy {
 }
 
 function undeploy {
-	set_undeploy_target $1
-	asadmin undeploy $UNDEPLOY_TARGET;
+    local app_name=$(find_deployed_application $1)
+    if [ -z $app_name ]; then
+        echo "No app with matching name deployed";
+        return -1;
+    fi
+
+	asadmin undeploy $app_name;
 }
 
 function local_logs {
