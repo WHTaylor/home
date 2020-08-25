@@ -6,7 +6,7 @@ function stop_payara {
     asadmin stop-domain --domaindir "$PAYARA_DOMAINS_DIR" "domain$1"
 }
 
-function set_deploy_target {
+function find_deploy_target {
     local source_dir;
     local target_ext;
     case $1 in
@@ -18,8 +18,9 @@ function set_deploy_target {
                         target_ext="war";;
         visits)         source_dir="$APPS_HOME_FOLDER/Visits/VisitsPackage";
                         target_ext="war";;
+        *)              return -1;;
     esac
-    DEPLOY_TARGET=$(find $source_dir -wholename $source_dir/*/target/$1*.$target_ext);
+    echo $(find $source_dir -wholename $source_dir/*/target/$1*.$target_ext);
 }
 
 function find_deployed_application {
@@ -28,8 +29,12 @@ function find_deployed_application {
 }
 
 function deploy {
-	set_deploy_target $1
-	asadmin deploy $DEPLOY_TARGET;
+    local app_name=$(find_deploy_target $1)
+    if [ -z $app_name ]; then
+        echo "Application has not been built or does not exist"
+        return -1;
+    fi
+    asadmin deploy $app_name;
 }
 
 function undeploy {
@@ -39,7 +44,7 @@ function undeploy {
         return -1;
     fi
 
-	asadmin undeploy $app_name;
+    asadmin undeploy $app_name;
 }
 
 function local_logs {
