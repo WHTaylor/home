@@ -5,7 +5,7 @@ alias ll="ls -alF"
 
 alias dev_logs='explorer.exe "\\\\fitbawebdev\d$\payara\domains\domain1\logs"'
 alias prod_logs='explorer.exe "\\\\fitbaweb1\d$\payara\domains\domain1\logs"'
-alias update_wsdl='py $APPS_HOME_FOLDER/Tools/WsdlUpdater/wsdl_updater.py'
+alias update_wsdl='py $APPS_HOME_FOLDER/ISISBusApps/Tools/WsdlUpdater/wsdl_updater.py'
 
 alias here="explorer ."
 alias python2="winpty /c/python27/python.exe"
