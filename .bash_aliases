@@ -12,3 +12,6 @@ alias python2="winpty /c/python27/python.exe"
 
 alias apps="cd $APPS_HOME_FOLDER"
 alias fbs="cd /c/FBS/Apps"
+
+alias mvnci="mvn clean install -DskipTests"
+alias search_code="grep -r --exclude={\*.wsdl,Reference.cs,Reference1.cs,\*.pdb,\*.dll,\*.html,\*.class}"
