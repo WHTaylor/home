@@ -52,3 +52,7 @@ function undeploy {
 function local_logs {
 	explorer "$PAYARA_DOMAINS_DIR\\domain$1\\logs"
 }
+
+# Never truncate history
+export HISTFILESIZE=
+export HISTSIZE=
