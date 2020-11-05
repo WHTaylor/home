@@ -18,6 +18,8 @@ function find_deploy_target {
                         target_ext="war";;
         visits)         source_dir="$APPS_HOME_FOLDER/Visits/VisitsPackage";
                         target_ext="war";;
+        proposal-lookup)source_dir="$APPS_HOME_FOLDER/Schedule/proposal-lookup";
+                        target_ext="war";;
         *)              return -1;;
     esac
     echo $(find $source_dir -wholename $source_dir/*/target/$1*.$target_ext);
