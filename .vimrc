@@ -19,7 +19,7 @@ nnoremap <C-l> <C-w>l
 "Shortcuts
 nnoremap <leader>b :ls<CR>:buffer<Space>
 nnoremap <leader>h :set hlsearch! hlsearch?<CR>
-nnoremap <leader>s :e scratch<CR>
+nnoremap <leader>t :e ~/todo<CR>
 nnoremap <leader>r :%s/
 
 "Typo helper
