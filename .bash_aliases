@@ -5,6 +5,7 @@ alias ll="ls -alF"
 
 alias apps="cd $APPS_HOME_FOLDER"
 alias fbs="cd /c/FBS/Apps"
+alias icat="cd ~/projects/isis-icat"
 
 alias mvnci="mvn clean install -DskipTests"
 alias update_wsdl='py $APPS_HOME_FOLDER/ISISBusApps/Tools/WsdlUpdater/wsdl_updater.py'
