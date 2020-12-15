@@ -8,26 +8,16 @@ function stop_payara {
 
 function find_deploy_target {
     local source_dir;
-    local target_ext;
+    local target_ext="war";
     case $1 in
-        users-services) source_dir="$APPS_HOME_FOLDER/users/users";
-                        target_ext="war";;
-        users-frontend) source_dir="$APPS_HOME_FOLDER/users/users";
-                        target_ext="war";;
-        schedule)       source_dir="$APPS_HOME_FOLDER/Schedule/SchedulePackage";
-                        target_ext="war";;
-        visits)         source_dir="$APPS_HOME_FOLDER/Visits/VisitsPackage";
-                        target_ext="war";;
-        proposal-lookup)source_dir="$APPS_HOME_FOLDER/Schedule/proposal-lookup";
-                        target_ext="war";;
+        users-services) source_dir="$APPS_HOME_FOLDER/users/users";;
+        users-frontend) source_dir="$APPS_HOME_FOLDER/users/users";;
+        schedule)       source_dir="$APPS_HOME_FOLDER/Schedule/SchedulePackage";;
+        visits)         source_dir="$APPS_HOME_FOLDER/Visits/VisitsPackage";;
+        proposal-lookup)source_dir="$APPS_HOME_FOLDER/Schedule/proposal-lookup";;
         *)              return -1;;
     esac
     echo $(find $source_dir -wholename $source_dir/*/target/$1*.$target_ext);
-}
-
-function find_deployed_application {
-    local retval=$(asadmin list-applications | grep $1 | cut -d ' ' -f1)
-    echo $retval
 }
 
 function deploy {
@@ -40,7 +30,7 @@ function deploy {
 }
 
 function undeploy {
-    local app_name=$(find_deployed_application $1)
+    local app_name=$(asadmin list-applications | grep $1 | cut -d ' ' -f1)
     if [ -z $app_name ]; then
         echo "No app with matching name deployed";
         return -1;
@@ -48,14 +38,6 @@ function undeploy {
 
     asadmin undeploy $app_name;
 }
-
-function local_logs {
-	explorer "$PAYARA_DOMAINS_DIR\\domain$1\\logs"
-}
-
-# Never truncate history
-export HISTFILESIZE=
-export HISTSIZE=
 
 # Go up n directories, where n is:
 #  - The first argument if it's an integer, otherwise
