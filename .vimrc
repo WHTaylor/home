@@ -29,3 +29,10 @@ command! Wq wq
 "Quick print statements
 autocmd FileType javascript inoremap <buffer> ;p console.log();<Left><Left>
 autocmd FileType python     inoremap <buffer> ;p print()<Left>
+
+"Abbreviations
+inoreabbrev sadface ʘ︵ʘ
+
+"Paste block into terminal repl. Only works with a single split, and keeps
+"indentation so sometimes annoying for python, but simple
+vnoremap <leader>p "ry<c-w>w<c-w>"r<c-w>w
