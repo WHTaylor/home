@@ -1,8 +1,9 @@
 inoremap jk <ESC>
 let mapleader = " "
-set number
 
 colo ron
+set number
+set hlsearch
 
 "Indentation
 set tabstop=4
@@ -21,14 +22,10 @@ nnoremap <C-l> <C-w>l
 nnoremap <leader>b :ls<CR>:buffer<Space>
 nnoremap <leader>h :set hlsearch! hlsearch?<CR>
 nnoremap <leader>t :e ~/todo<CR>
-nnoremap <leader>r :%s/
+nnoremap <leader>s :%s/
 
 "Typo helper
 command! Wq wq
-
-"Quick print statements
-autocmd FileType javascript inoremap <buffer> ;p console.log();<Left><Left>
-autocmd FileType python     inoremap <buffer> ;p print()<Left>
 
 "Abbreviations
 inoreabbrev sadface ʘ︵ʘ
