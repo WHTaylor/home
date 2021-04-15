@@ -2,8 +2,9 @@ inoremap jk <ESC>
 let mapleader = " "
 
 colo ron
-set number
 set hlsearch
+set number relativenumber
+set lazyredraw
 
 "Indentation
 set tabstop=4
@@ -11,6 +12,7 @@ set expandtab
 set shiftwidth=4
 set smartindent
 set autoindent
+set ignorecase smartcase "Ignore case unless pattern includes capitals
 
 "Pane movement
 nnoremap <C-h> <C-w>h
@@ -23,6 +25,9 @@ nnoremap <leader>b :ls<CR>:buffer<Space>
 nnoremap <leader>h :set hlsearch! hlsearch?<CR>
 nnoremap <leader>t :e ~/todo<CR>
 nnoremap <leader>s :%s/
+nnoremap <F2> :bnext<CR>
+nnoremap <F3> :bprev<CR>
+nnoremap <leader>e :Explore<CR>
 
 "Typo helper
 command! Wq wq
