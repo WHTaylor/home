@@ -1,0 +1,85 @@
+#!/usr/bin/env python
+""" Visualise the dependencies from a .csproj or .sln file """
+
+import argparse
+import os
+import re
+from collections import deque
+from pathlib import Path
+import xml.etree.ElementTree as ET
+
+# Assumes all tags are from the default xmlns
+def get_csproj_refs(cs_proj_path):
+    tree = ET.parse(str(cs_proj_path))
+    ns_match = re.search("{(.+)}",tree.getroot().tag)
+    ns = ns_match.groups()[0]
+    namespaces = {"xmlns": ns}
+
+    def to_name_and_path(projref):
+        path = Path(projref.attrib['Include'])
+        name = projref.find("xmlns:Name", namespaces).text
+        return name, path
+
+    projrefs = tree.iterfind(".//xmlns:ProjectReference", namespaces)
+    return [to_name_and_path(pr) for pr in projrefs]
+
+def get_sln_refs(sln_path):
+    patt = 'Project\("{[A-Z0-9-]+}"\) = "([A-Za-z0-9]+)", "(.+\.csproj)"'
+    matches = []
+    with open(sln_path) as f:
+        for l in f:
+            if l == "Global":
+                break
+            m = re.search(patt, l)
+            if m is not None:
+                matches.append(m)
+    return [(m.groups()[0], Path(m.groups()[1])) for m in matches]
+
+def resolve_dependencies(root_path):
+    def get_resolver(path):
+        ext = os.path.splitext(path)[1]
+        if ext == ".sln":
+            return get_sln_refs
+        elif ext == ".csproj":
+            return get_csproj_refs
+        else:
+            print(f"No resolver for {path}, crashing")
+
+    resolved = {}
+    to_resolve = deque()
+    def resolve(dep, resolver):
+        name, path = dep
+        if name in resolved: return
+
+        deps = resolver(path)
+        resolved[name] = [dep[0] for dep in deps]
+        for dep in deps:
+            name, rel_path = dep
+            to_resolve.append((name, path.parent.joinpath(rel_path)))
+
+    resolve((root_path.name, root_path), get_resolver(root_path))
+
+    while to_resolve:
+        name, path = to_resolve.popleft()
+        resolve((name, path), get_resolver(path))
+
+    return resolved
+
+def visualise(dept_tree, name, depth=0):
+    deps = sorted(dept_tree[name])
+    lines = [visualise(dept_tree, dep, depth + 1) for dep in deps]
+
+    prefix = "|" if depth > 0 else ""
+    header = prefix + "-" * (depth - 1) + name
+    splitter = '\n\n' if depth == 0 else '\n'
+    return splitter.join([header] + lines)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+            description='Visualise the dependencies from a .csproj or .sln file')
+    parser.add_argument('file', help='the .sln or .csproj file')
+    args = parser.parse_args()
+    root_path = Path(args.file)
+    dept_tree = resolve_dependencies(root_path)
+    print()
+    print(visualise(dept_tree, root_path.name))
