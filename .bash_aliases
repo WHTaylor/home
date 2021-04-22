@@ -1,5 +1,8 @@
 alias tailf="tail -f"
 alias ll="ls -alF"
+alias python="winpty python"
+
+alias nunit="nunit3-console.exe"
 
 alias apps="cd $APPS_HOME_FOLDER"
 alias fbs="cd /c/FBS/Apps"

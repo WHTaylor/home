@@ -2,7 +2,7 @@
 export HISTFILESIZE=
 export HISTSIZE=
 
-export PATH=$PATH:/c/payara/installations/payara-4.1.2.181/payara41/bin
+export PATH="$PATH:/c/payara/installations/payara-4.1.2.181/payara41/bin:/usr/local/bin/nunit-3.12/net35"
 export APPS_HOME_FOLDER="/c/Users/rop61488/Documents/Apps"
 export PAYARA_DOMAINS_DIR="C:\\payara\\domains"
 export DEV_LOGS="\\\\fitbawebdev\\d$\\payara\\domains\\domain1\\logs"

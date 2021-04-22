@@ -25,6 +25,7 @@ nnoremap <leader>b :ls<CR>:buffer<Space>
 nnoremap <leader>h :set hlsearch! hlsearch?<CR>
 nnoremap <leader>t :e ~/todo<CR>
 nnoremap <leader>s :%s/
+nnoremap <leader>w :%s/\s\+$//g<CR>
 nnoremap <F2> :bnext<CR>
 nnoremap <F3> :bprev<CR>
 nnoremap <leader>e :Explore<CR>
