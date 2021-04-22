@@ -24,7 +24,7 @@ def get_csproj_refs(cs_proj_path):
     return [to_name_and_path(pr) for pr in projrefs]
 
 def get_sln_refs(sln_path):
-    patt = 'Project\("{[A-Z0-9-]+}"\) = "([A-Za-z0-9]+)", "(.+\.csproj)"'
+    patt = 'Project\("{[A-Z0-9-]+}"\) = "(.+)", "(.+\.csproj)"'
     matches = []
     with open(sln_path) as f:
         for l in f:
