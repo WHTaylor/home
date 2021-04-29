@@ -9,5 +9,7 @@ export DEV_LOGS="\\\\fitbawebdev\\d$\\payara\\domains\\domain1\\logs"
 export PROD_LOGS="\\\\fitbaweb1\\d$\\payara\\domains\\domain1\\logs"
 export LOCAL_LOGS="$PAYARA_DOMAINS_DIR/domain1/logs"
 
+export CDPATH=".:$APPS_HOME_FOLDER"
+
 test -f ~/.bash_aliases && . ~/.bash_aliases
 test -f ~/.bashrc && . ~/.bashrc
