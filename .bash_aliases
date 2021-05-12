@@ -1,6 +1,6 @@
 alias tailf="tail -f"
 alias ll="ls -alF"
-alias python="winpty python"
+alias python="winpty python.exe"
 
 alias nunit="nunit3-console.exe"
 
