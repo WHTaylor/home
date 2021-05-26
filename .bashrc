@@ -10,11 +10,11 @@ function find_deploy_target {
     local source_dir;
     local target_ext="war";
     case $1 in
-        users-services) source_dir="$APPS_HOME_FOLDER/users/users";;
-        users-frontend) source_dir="$APPS_HOME_FOLDER/users/users";;
-        schedule)       source_dir="$APPS_HOME_FOLDER/Schedule/SchedulePackage";;
-        visits)         source_dir="$APPS_HOME_FOLDER/Visits/VisitsPackage";;
-        proposal-lookup)source_dir="$APPS_HOME_FOLDER/Schedule/proposal-lookup";;
+        users-services) source_dir="$APPS_HOME_DIR/users/users";;
+        users-frontend) source_dir="$APPS_HOME_DIR/users/users";;
+        schedule)       source_dir="$APPS_HOME_DIR/Schedule/SchedulePackage";;
+        visits)         source_dir="$APPS_HOME_DIR/Visits/VisitsPackage";;
+        proposal-lookup)source_dir="$APPS_HOME_DIR/Schedule/proposal-lookup";;
         *)              return -1;;
     esac
     echo $(find $source_dir -wholename $source_dir/*/target/$1*.$target_ext);
