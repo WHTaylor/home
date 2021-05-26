@@ -39,6 +39,10 @@ function undeploy {
     asadmin undeploy $app_name;
 }
 
+function redeploy {
+    undeploy $1 && deploy $1
+}
+
 # Go up n directories, where n is:
 #  - The first argument if it's an integer, otherwise
 #  - The length of the first argument
