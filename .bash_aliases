@@ -17,3 +17,6 @@ alias bgb='mvnci &> ~/build &'
 alias pftrt='pip freeze > requirements.txt' # Let's see if I remember this exists
 
 alias morning="start_payara 1 & docker start oracleXE"
+
+alias g=git
+complete -o bashdefault -o default -o nospace -F __git_wrap__git_main g
