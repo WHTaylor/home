@@ -1,5 +1,6 @@
 inoremap jk <ESC>
 let mapleader = " "
+set nocompatible
 
 colo ron
 set hlsearch
@@ -12,7 +13,10 @@ set expandtab
 set shiftwidth=4
 set smartindent
 set autoindent
+
+set hidden " Allow changing buffer without saving
 set ignorecase smartcase "Ignore case unless pattern includes capitals
+set splitbelow splitright
 
 "Pane movement
 nnoremap <C-h> <C-w>h
