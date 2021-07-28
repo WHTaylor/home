@@ -5,6 +5,8 @@ function start_payara {
 function stop_payara {
     asadmin stop-domain --domaindir "$PAYARA_DOMAINS_DIR" "domain$1"
 }
+# Print a random quote
+test -f ~/quotes && shuf -n 1 ~/quotes;
 
 function find_deploy_target {
     local source_dir;
