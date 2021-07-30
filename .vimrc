@@ -43,3 +43,13 @@ inoreabbrev sadface ʘ︵ʘ
 "Paste block into terminal repl. Only works with a single split, and keeps
 "indentation so sometimes annoying for python, but simple
 vnoremap <leader>p "ry<c-w>w<c-w>"r<c-w>w
+
+function! Scratch()
+    vsplit
+    noswapfile hide enew
+    setlocal buftype=nofile
+    setlocal bufhidden=wipe
+    lcd ~
+    file scratch
+endfunction
+nnoremap <leader>z :call Scratch()<CR>
