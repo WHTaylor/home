@@ -1,7 +1,8 @@
 # Print a random quote
-test -f ~/quotes && shuf -n 1 ~/quotes;
-
-test -f ~/bash/.payara_functions && . ~/bash/.payara_functions
+if [[ -r ~/quotes ]]; then
+    quote=$(shuf -n 1 ~/quotes)
+    echo "- $quote -"
+fi
 
 # Go up n directories
 function up {
@@ -23,3 +24,5 @@ function up {
     fi;
 
 }
+
+[[ "rop61488" == $USERNAME ]] && . ~/bash/work/.payara_functions
