@@ -33,6 +33,7 @@ nnoremap <leader>w :%s/\s\+$//g<CR>
 nnoremap <F2> :bprev<CR>
 nnoremap <F3> :bnext<CR>
 nnoremap <leader>e :Explore<CR>
+nnoremap <leader>c :let @/ = "" <bar> echo "search cleared" <CR>
 
 "Typo helper
 command! Wq wq
