@@ -35,6 +35,9 @@ nnoremap <F3> :bnext<CR>
 nnoremap <leader>e :Explore<CR>
 nnoremap <leader>c :let @/ = "" <bar> echo "search cleared" <CR>
 
+" Move next function parameter to new line
+let @p = "f,lr\<CR>"
+
 "Typo helper
 command! Wq wq
 
